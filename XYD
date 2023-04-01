@@ -1,4 +1,4 @@
-getgenv().Settings = {
+getgenv().XYD = {
     Main = {
         Enable = true,
  
