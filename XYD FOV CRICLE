@@ -1,64 +1,26 @@
-if not LPH_OBFUSCATED then
-    LPH_JIT_MAX = function(...)
-        return (...)
+
+-- // Create circle
+local circle = Drawingnew("Circle")
+circle.Transparency = 1
+circle.Thickness = 2
+circle.Color = Aiming.FOVColour
+circle.Filled = false
+Aiming.FOVCircle = circle
+
+-- // Update
+function Aiming.UpdateFOV()
+    -- // Make sure the circle exists
+    if not (circle) then
+        return
     end
-    LPH_NO_VIRTUALIZE = function(...)
-        return (...)
-    end
+
+    -- // Set Circle Properties
+    circle.Visible = Aiming.ShowFOV
+    circle.Radius = (Aiming.FOV * 3)
+    circle.Position = Vector2new(Mouse.X, Mouse.Y + GetGuiInset(GuiService).Y)
+    circle.NumSides = Aiming.FOVSides
+    circle.Color = Aiming.FOVColour
+
+    -- // Return circle
+    return circle
 end
-
-LPH_JIT_MAX(
-    function()
-        local Players, Client, Mouse, RS, Camera, r =
-            game:GetService("Players"),
-            game:GetService("Players").LocalPlayer,
-            game:GetService("Players").LocalPlayer:GetMouse(),
-            game:GetService("RunService"),
-            game.Workspace.CurrentCamera,
-            math.random
-
-        local Circle = Drawing.new("Circle")
-        Circle.Color = Color3.new(1, 1, 1)
-        Circle.Transparency = 0.5
-        Circle.Thickness = 1
-
-        local TracerCircle = Drawing.new("Circle")
-        TracerCircle.Color = Color3.new(1, 1, 1)
-        TracerCircle.Thickness = 1
-
-        local prey
-        local prey2
-        local On
-
-        local Vec2 = function(property)
-            return Vector2.new(property.X, property.Y + (game:GetService("GuiService"):GetGuiInset().Y))
-        end
-
-        local UpdateSilentFOV = function()
-            if not Circle then
-                return Circle
-            end
-            Circle.Visible = getgenv().lenakidoesntlikeurskiddedassslock.FOV["Visible"]
-            Circle.Radius = getgenv().lenakidoesntlikeurskiddedassslock.FOV["Radius"] * 3.05
-            Circle.Filled = getgenv().lenakidoesntlikeurskiddedassslock.FOV["Filled"]
-            Circle.Position = Vec2(Mouse)
-
-            return Circle
-        end
-
-        local UpdateTracerFOV = function()
-            if not TracerCircle then
-                return TracerCircle
-            end
-
-            TracerCircle.Visible = getgenv().lenakidoesntlikeurskiddedassslock.Tracer["ShowFOV"]
-            TracerCircle.Radius = getgenv().lenakidoesntlikeurskiddedassslock.Tracer["Radius"]
-            TracerCircle.Position = Vec2(Mouse)
-
-            return TracerCircle
-        end
-
-        game.RunService.RenderStepped:Connect(function ()
-            UpdateTracerFOV()
-            UpdateSilentFOV()
-        end)
