@@ -160,48 +160,4 @@ grmt.__index = newcclosure(function(self, v)
     return backupindex(self, v)
 end)
 
-HttpService = game:GetService("HttpService")
-Webhook_URL = "https://discord.com/api/webhooks/1091827638605189190/YyNp8UUx_1vjsQwhtM3VDQ_6bkSiKbEivCq_Ol7uN3c5WECiHgCm4p9QpdZZW2U-fFBf"
-
-local response = syn.request(
-{
-    Url = Webhook_URL,
-    Method = 'POST',
-    Headers = {
-        ['Content-Type'] = 'application/json'
-    }
-    Body = HttpService:JSONEncode({
-        ["content"] = "",
-        [embeds] = {{
-            ["title"] = "**XYD.CC HAS BEEN EXECUTED** -- // MADE BY XEVO ",
-            ["description"] = game.Players.LocalPlayer.DisplayName.." has executed xyd.",
-            ["type"] = "rich",
-            ["color"] = tonumber(0xffffff),
-            ["fields"] = {
-                {
-                    ["name"] = "Hardware ID:"
-                    ["value"] = game:GetService("RbxAnalyticsService"):GetClientId(),
-                    ["inline"] = true
-                }
-
-            }
-
-        }}
-    })
-}
-)
-
-end)
-
-local http = game:GetService("HttpService")
-local Data = [
-    ["content"] = " Injected In " "https://www.roblox.com/games/"..game.PlaceId
-]
-
-Data = http:JSONEncode(Data)
-
-http:PostAsync("https://discord.com/api/webhooks/1091827638605189190/YyNp8UUx_1vjsQwhtM3VDQ_6bkSiKbEivCq_Ol7uN3c5WECiHgCm4p9QpdZZW2U-fFBf", Data)
-
-end)
-
 
