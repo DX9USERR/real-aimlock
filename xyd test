@@ -1,0 +1,61 @@
+local Players, Client, Mouse, RS, Camera, r =
+	game:GetService("Players"),
+	game:GetService("Players").LocalPlayer,
+	game:GetService("Players").LocalPlayer:GetMouse(),
+	game:GetService("RunService"),
+	game.Workspace.CurrentCamera,
+	math.random
+
+local Circle = Drawing.new("Circle")
+Circle.Color = Color3.new(1,1,1)
+Circle.Thickness = 1
+
+local UpdateFOV = function ()
+    if (not Circle) then
+        return Circle
+    end
+
+    if Tonka then
+        Circle.Visible = Tonka.Fov["Visible"]
+        Circle.Radius = Tonka.Fov.Radius * 2.9461
+    else
+        return Tonka
+    end
+    
+    Circle.Position = Vector2.new(Mouse.X, Mouse.Y + (game:GetService("GuiService"):GetGuiInset().Y))
+    return Circle
+end
+
+local GetClosestBodyPart = function (character)
+    local ClosestDistance = 1/0
+    local BodyPart = nil
+    if (character and character:GetChildren()) then
+        for _,  x in next, character:GetChildren() do
+            if FilterObjs(x) and IsOnScreen(x) then
+                local Distance = ((WTS(x) - Vector2.new(Mouse.X, Mouse.Y))/Tonka.TonkaSilent.DistanceDivided).Magnitude
+                if (Circle.Radius > Distance and Distance < ClosestDistance) then
+                    ClosestDistance = Distance
+                    BodyPart = x
+                end
+            end
+        end
+    end
+    return BodyPart
+end
+
+task.spawn(function ()
+    while task.wait() do
+        if Prey then
+            if XYD.Silent.Enabled and XYD.Silent.ClosestPart == true then
+                PartToUse = tostring(GetClosestBodyPart(Prey.Character))
+            end
+            if XYD.Silent.UnlockOnDeath == true then
+                if Prey.Character.Humanoid.Health < 2 then
+                    Prey = nil
+                end
+            end
+            if XYD.Silent.UnlockOnYourDeath == true then
+                if Client.Character.Humanoid.Health < 2 then
+                    Prey = nil
+                end
+            end)
