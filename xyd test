@@ -15,11 +15,11 @@ local UpdateFOV = function ()
         return Circle
     end
 
-    if Tonka then
-        Circle.Visible = Tonka.Fov["Visible"]
-        Circle.Radius = Tonka.Fov.Radius * 2.9461
+    if XYD then
+        Circle.Visible = XYD.Fov["Visible"]
+        Circle.Radius = XYD.Fov.Radius * 2.9461
     else
-        return Tonka
+        return XYD
     end
     
     Circle.Position = Vector2.new(Mouse.X, Mouse.Y + (game:GetService("GuiService"):GetGuiInset().Y))
@@ -32,7 +32,7 @@ local GetClosestBodyPart = function (character)
     if (character and character:GetChildren()) then
         for _,  x in next, character:GetChildren() do
             if FilterObjs(x) and IsOnScreen(x) then
-                local Distance = ((WTS(x) - Vector2.new(Mouse.X, Mouse.Y))/Tonka.TonkaSilent.DistanceDivided).Magnitude
+                local Distance = ((WTS(x) - Vector2.new(Mouse.X, Mouse.Y))/XYD.Silent.DistanceDivided).Magnitude
                 if (Circle.Radius > Distance and Distance < ClosestDistance) then
                     ClosestDistance = Distance
                     BodyPart = x
